@@ -24,7 +24,7 @@ var Version string
 var frontend embed.FS
 
 func main() {
-	fmt.Println("Version:", Version)
+	fmt.Println("Running Version:", Version)
 	app := pocketbase.New()
 
 	// loosely check if it was executed using "go run"
