@@ -1,3 +1,7 @@
+TAGS=$(git tag --list)
+echo "Tags:"
+echo "$TAGS"
+
 # check if there are uncommited changes
 if [[ $(git status --porcelain) ]]; then
   echo "There are uncommited changes. Commit them first."
