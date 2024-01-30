@@ -29,7 +29,7 @@
 	});
 </script>
 
-<Toaster theme={toasterTheme} />
+<Toaster closeButton richColors theme={toasterTheme} />
 
 {#if $auth.isValid}
 	<div class="flex w-full overflow-hidden">
