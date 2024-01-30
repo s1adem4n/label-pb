@@ -15,7 +15,7 @@ import (
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 	"github.com/spf13/cobra"
 
-	"label/pkg/frontend"
+	"label/frontend"
 	"label/pkg/version"
 )
 
