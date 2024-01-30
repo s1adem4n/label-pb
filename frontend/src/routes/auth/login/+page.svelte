@@ -31,10 +31,15 @@
 	disabled={!usernameOrEmail || !password || loading}
 	on:click={() => {
 		loading = true;
-		auth.login(usernameOrEmail, password).then(() => {
-			loading = false;
-			goto(`${base}/`);
-		});
+		auth
+			.login(usernameOrEmail, password)
+			.then(() => {
+				loading = false;
+				goto(`${base}/`);
+			})
+			.catch(() => {
+				loading = false;
+			});
 	}}>Einloggen</Button
 >
 

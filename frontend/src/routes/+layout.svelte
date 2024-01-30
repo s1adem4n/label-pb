@@ -5,9 +5,14 @@
 	import { afterNavigate, goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
+	import { Toaster } from 'svelte-sonner';
+	import { settings } from '$lib/stores/settings';
 
 	let currentTitle: string = '';
 	let sidebarOpen = window.innerWidth > 640 ? true : false;
+
+	let toasterTheme: 'dark' | 'light' = 'light';
+	$: toasterTheme = $settings.dark ? 'dark' : 'light';
 
 	$: if (
 		!$auth.isValid &&
@@ -23,6 +28,8 @@
 		}, 100);
 	});
 </script>
+
+<Toaster theme={toasterTheme} />
 
 {#if $auth.isValid}
 	<div class="flex w-full overflow-hidden">

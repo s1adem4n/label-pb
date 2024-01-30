@@ -7,6 +7,7 @@
 	import { onMount, tick } from 'svelte';
 	import type { Image } from '$lib/api/types';
 	import { pb } from '$lib/stores/pb';
+	import { toast } from 'svelte-sonner';
 
 	let images: Image[] = [];
 	let open = false;
@@ -19,6 +20,9 @@
 			.getFullList()
 			.then((res) => {
 				images = res;
+			})
+			.catch(() => {
+				toast.error('Bilder konnten nicht geladen werden.');
 			});
 	});
 

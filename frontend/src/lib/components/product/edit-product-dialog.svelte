@@ -2,6 +2,7 @@
 	import type { Image, Product } from '$lib/api/types';
 	import { Button, Input, Label, Dialog } from '$lib/components/ui';
 	import { pb } from '$lib/stores/pb';
+	import { toast } from 'svelte-sonner';
 	import ImageAutocomplete from '../image/image-autocomplete.svelte';
 	import ImagePreview from '../image/image-preview.svelte';
 
@@ -61,6 +62,10 @@
 						.then(() => {
 							loading = false;
 							open = false;
+						})
+						.catch(() => {
+							loading = false;
+							toast.error('Produkt konnte nicht bearbeitet werden.');
 						});
 				}}>Produkt bearbeiten</Button
 			>

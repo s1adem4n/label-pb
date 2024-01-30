@@ -7,6 +7,7 @@
 	import { Button, DropdownMenu } from '$lib/components/ui';
 	import type { Batch } from '$lib/api/types';
 	import EditBatchDialog from './edit-batch-dialog.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let open = false;
 	let dialogOpen = false;
@@ -29,7 +30,12 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
 			on:click={() => {
-				$pb.collection('batches').delete(batch.id);
+				$pb
+					.collection('batches')
+					.delete(batch.id)
+					.catch(() => {
+						toast.error('Charge konnte nicht gelöscht werden.');
+					});
 			}}
 			class="text-red-500"
 		>

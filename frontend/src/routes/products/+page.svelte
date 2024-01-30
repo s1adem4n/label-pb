@@ -7,6 +7,7 @@
 	import { Button } from '$lib/components/ui';
 	import { pb } from '$lib/stores/pb';
 	import { onMount } from 'svelte';
+	import { toast } from 'svelte-sonner';
 
 	let products: Product[] = [];
 	let dialogOpen = false;
@@ -17,6 +18,9 @@
 			.getFullList()
 			.then((res) => {
 				products = res;
+			})
+			.catch(() => {
+				toast.error('Produkte konnten nicht geladen werden.');
 			});
 	};
 

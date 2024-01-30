@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui';
 	import CreateImageDialog from '$lib/components/image/create-image-dialog.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let images: Image[] = [];
 	let dialogOpen = false;
@@ -17,6 +18,9 @@
 			.getFullList()
 			.then((res) => {
 				images = res;
+			})
+			.catch(() => {
+				toast.error('Bilder konnten nicht geladen werden.');
 			});
 	};
 

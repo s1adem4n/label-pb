@@ -5,6 +5,7 @@
 	import { pb } from '$lib/stores/pb';
 	import ImageAutocomplete from '../image/image-autocomplete.svelte';
 	import ImagePreview from '../image/image-preview.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let product = {
 		name: '',
@@ -61,6 +62,10 @@
 						.then(() => {
 							loading = false;
 							open = false;
+						})
+						.catch(() => {
+							loading = false;
+							toast.error('Produkt konnte nicht erstellt werden.');
 						});
 				}}>Produkt erstellen</Button
 			>

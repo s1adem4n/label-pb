@@ -2,6 +2,7 @@
 	import { Button, Label, Input, AlertDialog, Separator } from '$lib/components/ui';
 	import { pb } from '$lib/stores/pb';
 	import { auth } from '$lib/stores/auth';
+	import { toast } from 'svelte-sonner';
 
 	let username = '';
 	let oldPassword = '';
@@ -32,10 +33,15 @@
 						$pb
 							.collection('users')
 							.delete($auth.model.id)
+							.then(() => {
+								auth.logout();
+							})
+							.catch(() => {
+								toast.error('Konto konnte nicht gelöscht werden.');
+							})
 							.finally(() => {
 								loading = false;
 								dialogOpen = false;
-								auth.logout();
 							});
 					}}
 					variant="destructive">Konto löschen</Button
@@ -61,10 +67,12 @@
 					.collection('users')
 					.update($auth.model.id, { username })
 					.then(() => {
-						loading = false;
 						$auth.model.name = username;
 					})
 					.catch(() => {
+						toast.error('Benutzername konnte nicht geändert werden.');
+					})
+					.finally(() => {
 						loading = false;
 					});
 			}}>Benutzername ändern</Button
@@ -107,9 +115,14 @@
 						passwordConfirm,
 						oldPassword
 					})
+					.then(() => {
+						auth.logout();
+					})
+					.catch(() => {
+						toast.error('Passwort konnte nicht geändert werden.');
+					})
 					.finally(() => {
 						loading = false;
-						auth.logout();
 					});
 			}}>Passwort ändern</Button
 		>
@@ -138,20 +151,30 @@
 				disabled={loading}
 				on:click={() => {
 					loading = true;
-					$pb.send('/update', {}).finally(() => {
-						loading = false;
-					});
+					$pb
+						.send('/update', {})
+						.catch(() => {
+							toast.error('Server konnte nicht aktualisiert werden.');
+						})
+						.finally(() => {
+							loading = false;
+						});
 				}}
 			>
-				Update installieren
+				Aktualisieren
 			</Button>
 			<Button
 				disabled={loading}
 				on:click={() => {
 					loading = true;
-					$pb.send('/restart', {}).finally(() => {
-						loading = false;
-					});
+					$pb
+						.send('/restart', {})
+						.catch(() => {
+							toast.error('Server konnte nicht neugestartet werden.');
+						})
+						.finally(() => {
+							loading = false;
+						});
 				}}
 			>
 				Neustarten

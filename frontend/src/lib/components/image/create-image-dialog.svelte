@@ -2,6 +2,7 @@
 	import { Button, Input, Label, Dialog } from '$lib/components/ui';
 	import { auth } from '$lib/stores/auth';
 	import { pb } from '$lib/stores/pb';
+	import { toast } from 'svelte-sonner';
 	import ImagePreview from './image-preview.svelte';
 
 	let image: File | null = null;
@@ -57,6 +58,10 @@
 						.then(() => {
 							loading = false;
 							open = false;
+						})
+						.catch(() => {
+							loading = false;
+							toast.error('Bild konnte nicht hochgeladen werden.');
 						});
 				}}
 			>

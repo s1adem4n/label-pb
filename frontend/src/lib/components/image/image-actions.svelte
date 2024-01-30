@@ -11,6 +11,7 @@
 	import EditImageDialog from './edit-image-dialog.svelte';
 	import ViewImageDialog from './view-image-dialog.svelte';
 	import { downloadUrl, getFileUrl } from '$lib/utils';
+	import { toast } from 'svelte-sonner';
 
 	let open = false;
 	let editDialogOpen = false;
@@ -47,7 +48,12 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
 			on:click={() => {
-				$pb.collection('images').delete(image.id);
+				$pb
+					.collection('images')
+					.delete(image.id)
+					.catch(() => {
+						toast.error('Bild konnte nicht gelöscht werden.');
+					});
 			}}
 			class="text-red-500"
 		>

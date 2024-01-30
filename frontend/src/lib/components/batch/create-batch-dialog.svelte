@@ -2,6 +2,7 @@
 	import { Button, Label, Dialog, Slider, DatePicker, Input } from '$lib/components/ui';
 	import { auth } from '$lib/stores/auth';
 	import { pb } from '$lib/stores/pb';
+	import { toast } from 'svelte-sonner';
 
 	export let product: string;
 	let batch = {
@@ -60,6 +61,10 @@
 						.then(() => {
 							loading = false;
 							open = false;
+						})
+						.catch(() => {
+							loading = false;
+							toast.error('Charge konnte nicht erstellt werden.');
 						});
 				}}>Charge erstellen</Button
 			>

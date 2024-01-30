@@ -9,6 +9,7 @@
 	import { Button } from '$lib/components/ui';
 	import { pb } from '$lib/stores/pb';
 	import { onMount } from 'svelte';
+	import { toast } from 'svelte-sonner';
 
 	let product: Product | null = null;
 	$: if (product) {
@@ -27,6 +28,9 @@
 			})
 			.then((res) => {
 				batches = res;
+			})
+			.catch(() => {
+				toast.error('Chargen konnten nicht geladen werden.');
 			});
 	}
 

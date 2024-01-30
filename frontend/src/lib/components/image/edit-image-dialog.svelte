@@ -3,6 +3,7 @@
 	import { Button, Input, Label, Dialog } from '$lib/components/ui';
 	import { pb } from '$lib/stores/pb';
 	import { getFileUrl } from '$lib/utils';
+	import { toast } from 'svelte-sonner';
 	import ImagePreview from './image-preview.svelte';
 
 	export let image: Image;
@@ -64,6 +65,10 @@
 						.then(() => {
 							loading = false;
 							open = false;
+						})
+						.catch(() => {
+							loading = false;
+							toast.error('Bild konnte nicht bearbeitet werden.');
 						});
 				}}
 			>

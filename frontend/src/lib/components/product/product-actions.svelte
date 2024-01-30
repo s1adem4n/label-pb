@@ -13,6 +13,7 @@
 	import ViewProductDialog from './view-product-dialog.svelte';
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import { toast } from 'svelte-sonner';
 
 	let open = false;
 	let editDialogOpen = false;
@@ -53,7 +54,12 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
 			on:click={() => {
-				$pb.collection('products').delete(product.id);
+				$pb
+					.collection('products')
+					.delete(product.id)
+					.catch(() => {
+						toast.error('Produkt konnte nicht gelöscht werden.');
+					});
 			}}
 			class="text-red-500"
 		>

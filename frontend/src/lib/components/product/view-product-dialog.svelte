@@ -2,6 +2,7 @@
 	import type { Image, Product } from '$lib/api/types';
 	import { Dialog } from '$lib/components/ui';
 	import { pb } from '$lib/stores/pb';
+	import { toast } from 'svelte-sonner';
 	import ImagePreview from '../image/image-preview.svelte';
 
 	export let open = false;
@@ -14,6 +15,9 @@
 			.getOne(product.image)
 			.then((img) => {
 				image = img;
+			})
+			.catch((err) => {
+				toast.error('Bild konnte nicht geladen werden.');
 			});
 	}
 </script>

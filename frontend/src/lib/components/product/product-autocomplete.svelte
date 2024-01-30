@@ -7,6 +7,7 @@
 	import { onMount, tick } from 'svelte';
 	import type { Product } from '$lib/api/types';
 	import { pb } from '$lib/stores/pb';
+	import { toast } from 'svelte-sonner';
 
 	let products: Product[] = [];
 	let open = false;
@@ -19,6 +20,9 @@
 			.getFullList()
 			.then((res) => {
 				products = res;
+			})
+			.catch(() => {
+				toast.error('Produkte konnten nicht geladen werden.');
 			});
 	});
 

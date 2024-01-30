@@ -2,6 +2,7 @@
 	import type { Batch } from '$lib/api/types';
 	import { Button, Label, Dialog, Slider, DatePicker, Input } from '$lib/components/ui';
 	import { pb } from '$lib/stores/pb';
+	import { toast } from 'svelte-sonner';
 
 	export let batch: Batch;
 	export let open = false;
@@ -59,6 +60,10 @@
 						.then(() => {
 							loading = false;
 							open = false;
+						})
+						.catch(() => {
+							loading = false;
+							toast.error('Charge konnte nicht bearbeitet werden.');
 						});
 				}}>Charge bearbeiten</Button
 			>
