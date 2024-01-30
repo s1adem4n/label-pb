@@ -13,8 +13,8 @@ jobs:
       - id: go-cache-paths
         name: Set up Go Cache Paths
         run: |
-          echo "::set-output name=go-build::$(go env GOCACHE)"
-          echo "::set-output name=go-mod::$(go env GOMODCACHE)"
+          echo "go-build=$(go env GOCACHE)" >> $GITHUB_STATE
+          echo "go-mod=$(go env GOMODCACHE)" >> $GITHUB_STATE
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -46,6 +46,7 @@ jobs:
         run: make -j4 all
 
       - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
           files: |
