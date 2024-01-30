@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -16,10 +17,14 @@ import (
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 )
 
+// This will be injected by the build process
+var Version string
+
 //go:embed frontend/build/*
 var frontend embed.FS
 
 func main() {
+	fmt.Println("Version:", Version)
 	app := pocketbase.New()
 
 	// loosely check if it was executed using "go run"
