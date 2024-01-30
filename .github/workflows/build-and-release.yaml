@@ -13,33 +13,16 @@ jobs:
       GO_MOD:
 
     steps:
-      - name: Set up Go Cache Paths
-        run: |
-          echo "GO_BUILD=$(go env GOCACHE)" >> "$GITHUB_ENV"
-          echo "GO_MOD=$(go env GOMODCACHE)" >> "$GITHUB_ENV"
-
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
+      - name: Setup Golang with cache
+        uses: magnetikonline/action-golang-cache@v4
         with:
-          go-version: 1.21.5
-
-      - name: Go Build Cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.GO_BUILD }}
-          key: ${{ runner.os }}-go-build-${{ hashFiles('**/go.sum') }}
-
-      - name: Go Mod Cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.GO_MOD }}
-          key: ${{ runner.os }}-go-mod-${{ hashFiles('**/go.sum') }}
+          go-version-file: go.mod
 
       - name: Download go dependencies
         run: go mod download
