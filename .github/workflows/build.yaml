@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
@@ -36,13 +36,13 @@ jobs:
         run: zip -r bin.zip bin
 
       - name: Delete old artifacts
-        uses: geekyeggo/delete-artifact
+        uses: geekyeggo/delete-artifact@v4
         with:
           failOnError: false
           name: bin.zip
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: bin.zip
           path: bin.zip
