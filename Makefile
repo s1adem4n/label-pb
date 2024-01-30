@@ -4,7 +4,7 @@ BINARY_NAME=label
 MAIN_FILE=cmd/main.go
 SOURCES=$(shell find . -name '*.go')
 VERSION=$(shell git describe --tags --always)
-FLAGS=-ldflags "-X main.Version=$(VERSION)"
+FLAGS=-ldflags "-X main.Version=$(VERSION) -w"
 TARGETS = bin/$(BINARY_NAME)_linux_amd64 bin/$(BINARY_NAME)_darwin_amd64 bin/$(BINARY_NAME)_darwin_arm64 bin/$(BINARY_NAME)_windows_amd64.exe
 
 all: $(TARGETS)

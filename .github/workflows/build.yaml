@@ -1,0 +1,41 @@
+name: Build and upload artifacts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GO_BUILD:
+      GO_MOD:
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Setup Golang with cache
+        id: golang-with-cache
+        uses: magnetikonline/action-golang-cache@v4
+        with:
+          go-version-file: go.mod
+
+      - name: Download go dependencies
+        run: go mod download
+
+      - name: Run make all
+        run: make -j4 all
+
+      - name: Compress binaries
+        run: tar -czvf bin.tar.gz bin/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: bin.tar.gz
+          path: bin.tar.gz
