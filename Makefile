@@ -22,5 +22,5 @@ bin/$(BINARY_NAME)_darwin_arm64: frontend/build $(SOURCES)
 	GOOS=darwin GOARCH=arm64 go build $(FLAGS) -o bin/$(BINARY_NAME)_darwin_arm64 $(MAIN_FILE)
 
 bin/$(BINARY_NAME)_windows_amd64: frontend/build $(SOURCES)
-	GOOS=windows GOARCH=amd64 go build $(FLAGS) -o bin/$(BINARY_NAME)_windows_amd64 $(MAIN_FILE)
+	GOOS=windows GOARCH=amd64 go build $(FLAGS) -o bin/$(BINARY_NAME)_windows_amd64.exe $(MAIN_FILE)
 
