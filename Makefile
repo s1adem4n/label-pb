@@ -7,6 +7,8 @@ VERSION=$(shell git describe --tags --always)
 FLAGS=-ldflags "-X main.Version=$(VERSION) -w"
 TARGETS = build/$(BINARY_NAME)_linux_amd64 build/$(BINARY_NAME)_darwin_amd64 build/$(BINARY_NAME)_darwin_arm64 build/$(BINARY_NAME)_windows_amd64.exe
 
+.PHONY: all
+
 all: $(TARGETS)
 
 frontend/build:
@@ -23,4 +25,3 @@ build/$(BINARY_NAME)_darwin_arm64: frontend/build $(SOURCES)
 
 build/$(BINARY_NAME)_windows_amd64.exe: frontend/build $(SOURCES)
 	GOOS=windows GOARCH=amd64 go build $(FLAGS) -o build/$(BINARY_NAME)_windows_amd64.exe $(MAIN_FILE)
-
