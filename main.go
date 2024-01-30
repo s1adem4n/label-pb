@@ -3,7 +3,6 @@ package main
 import (
 	"embed"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -66,22 +65,6 @@ func main() {
 			return err
 		}
 		defer br.Close()
-
-		res, err := io.ReadAll(br)
-		if err != nil {
-			return err
-		}
-
-		file, err := os.Create("test.jpg")
-		if err != nil {
-			return err
-		}
-		defer file.Close()
-
-		_, err = file.Write(res)
-		if err != nil {
-			return err
-		}
 
 		return nil
 	})
