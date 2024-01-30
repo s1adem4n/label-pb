@@ -13,69 +13,6 @@ func init() {
 	m.Register(func(db dbx.Builder) error {
 		jsonData := `[
 			{
-				"id": "_pb_users_auth_",
-				"created": "2024-01-19 11:55:08.648Z",
-				"updated": "2024-01-19 11:55:08.648Z",
-				"name": "users",
-				"type": "auth",
-				"system": false,
-				"schema": [
-					{
-						"system": false,
-						"id": "users_name",
-						"name": "name",
-						"type": "text",
-						"required": false,
-						"presentable": false,
-						"unique": false,
-						"options": {
-							"min": null,
-							"max": null,
-							"pattern": ""
-						}
-					},
-					{
-						"system": false,
-						"id": "users_avatar",
-						"name": "avatar",
-						"type": "file",
-						"required": false,
-						"presentable": false,
-						"unique": false,
-						"options": {
-							"mimeTypes": [
-								"image/jpeg",
-								"image/png",
-								"image/svg+xml",
-								"image/gif",
-								"image/webp"
-							],
-							"thumbs": null,
-							"maxSelect": 1,
-							"maxSize": 5242880,
-							"protected": false
-						}
-					}
-				],
-				"indexes": [],
-				"listRule": "id = @request.auth.id",
-				"viewRule": "id = @request.auth.id",
-				"createRule": "",
-				"updateRule": "id = @request.auth.id",
-				"deleteRule": "id = @request.auth.id",
-				"options": {
-					"allowEmailAuth": true,
-					"allowOAuth2Auth": true,
-					"allowUsernameAuth": true,
-					"exceptEmailDomains": null,
-					"manageRule": null,
-					"minPasswordLength": 8,
-					"onlyEmailDomains": null,
-					"onlyVerified": false,
-					"requireEmail": false
-				}
-			},
-			{
 				"id": "mlrj8f154zedj6k",
 				"created": "2024-01-19 12:00:11.343Z",
 				"updated": "2024-01-21 22:05:33.064Z",
@@ -318,6 +255,43 @@ func init() {
 				"updateRule": "@request.auth.id = owner.id",
 				"deleteRule": "@request.auth.id = owner.id",
 				"options": {}
+			},
+			{
+				"id": "_pb_users_auth_",
+				"created": "2024-01-30 20:38:12.667Z",
+				"updated": "2024-01-30 20:48:40.233Z",
+				"name": "users",
+				"type": "auth",
+				"system": false,
+				"schema": [
+					{
+						"system": false,
+						"id": "njkjdggt",
+						"name": "admin",
+						"type": "bool",
+						"required": false,
+						"presentable": false,
+						"unique": false,
+						"options": {}
+					}
+				],
+				"indexes": [],
+				"listRule": "id = @request.auth.id",
+				"viewRule": "id = @request.auth.id",
+				"createRule": "",
+				"updateRule": "id = @request.auth.id",
+				"deleteRule": "id = @request.auth.id",
+				"options": {
+					"allowEmailAuth": true,
+					"allowOAuth2Auth": false,
+					"allowUsernameAuth": true,
+					"exceptEmailDomains": null,
+					"manageRule": null,
+					"minPasswordLength": 8,
+					"onlyEmailDomains": null,
+					"onlyVerified": false,
+					"requireEmail": false
+				}
 			}
 		]`
 

@@ -39,7 +39,10 @@ fi
 
 # check if zip does not exist
 if [[ ! -f releases/${TAG}.zip ]] || [[ $@ =~ "-f" ]]; then
-  make -j4 --always-make all
+  rm -rf build
+  rm -rf frontend/build
+
+  make -j4 all
   zip -r releases/${TAG}.zip build/
 fi
 
