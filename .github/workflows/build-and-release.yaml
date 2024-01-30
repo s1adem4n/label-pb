@@ -20,6 +20,7 @@ jobs:
         uses: oven-sh/setup-bun@v1
 
       - name: Setup Golang with cache
+        id: golang-with-cache
         uses: magnetikonline/action-golang-cache@v4
         with:
           go-version-file: go.mod
@@ -39,3 +40,12 @@ jobs:
             bin/label_darwin_amd64
             bin/label_darwin_arm64
             bin/label_windows_amd64.exe
+
+      - name: Save Golang cache
+        if: always()
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            ${{ steps.golang-with-cache.outputs.build-cache-path }}
+            ${{ steps.golang-with-cache.outputs.module-cache-path }}
+          key: ${{ steps.golang-with-cache.outputs.cache-key }}
