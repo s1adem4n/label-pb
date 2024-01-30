@@ -5,8 +5,10 @@
 	import { afterNavigate, goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import { Toaster } from 'svelte-sonner';
+	import { Toaster, toast } from 'svelte-sonner';
 	import { settings } from '$lib/stores/settings';
+	import { onMount } from 'svelte';
+	import { pb } from '$lib/stores/pb';
 
 	let currentTitle: string = '';
 	let sidebarOpen = window.innerWidth > 640 ? true : false;
@@ -21,6 +23,14 @@
 	) {
 		goto(`${base}/auth/login`);
 	}
+
+	onMount(() => {
+		$pb.send('/version', {}).then((res) => {
+			if (res.version && res.version !== res.latest) {
+				toast.info(`Es ist eine neue Version verfügbar: ${res.latest}.`);
+			}
+		});
+	});
 
 	afterNavigate(() => {
 		setTimeout(() => {

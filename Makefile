@@ -4,7 +4,7 @@ BINARY_NAME=label
 MAIN_FILE=cmd/main.go
 SOURCES=$(shell find . -name '*.go')
 VERSION=$(shell git describe --tags --abbrev=0)
-FLAGS=-ldflags "-X main.Version=$(VERSION) -w"
+FLAGS=-ldflags "-X main.Version=$(VERSION) -w -s"
 TARGETS = build/$(BINARY_NAME)_linux_amd64 build/$(BINARY_NAME)_darwin_amd64 build/$(BINARY_NAME)_darwin_arm64 build/$(BINARY_NAME)_windows_amd64.exe
 
 .PHONY: all
