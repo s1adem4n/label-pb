@@ -32,7 +32,7 @@
 						$pb
 							.collection('users')
 							.delete($auth.model.id)
-							.then(() => {
+							.finally(() => {
 								loading = false;
 								dialogOpen = false;
 								auth.logout();
@@ -63,6 +63,9 @@
 					.then(() => {
 						loading = false;
 						$auth.model.name = username;
+					})
+					.catch(() => {
+						loading = false;
 					});
 			}}>Benutzername ändern</Button
 		>
@@ -104,7 +107,7 @@
 						passwordConfirm,
 						oldPassword
 					})
-					.then(() => {
+					.finally(() => {
 						loading = false;
 						auth.logout();
 					});
@@ -119,4 +122,34 @@
 		<p class="text-destructive text-sm">Warnung: Dies kann nicht rückgängig gemacht werden!</p>
 		<Button variant="destructive" on:click={() => (dialogOpen = true)}>Konto löschen</Button>
 	</div>
+
+	<Separator />
+
+	{#if $auth.model.admin}
+		<div class="flex flex-col gap-2">
+			<h3 class="text-xl font-bold leading-6">Server-Aktionen</h3>
+			<Button
+				disabled={loading}
+				on:click={() => {
+					loading = true;
+					$pb.send('/update', {}).finally(() => {
+						loading = false;
+					});
+				}}
+			>
+				Update installieren
+			</Button>
+			<Button
+				disabled={loading}
+				on:click={() => {
+					loading = true;
+					$pb.send('/restart', {}).finally(() => {
+						loading = false;
+					});
+				}}
+			>
+				Neustarten
+			</Button>
+		</div>
+	{/if}
 </div>
