@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Go Cache Paths
+      - id: go-cache-paths
+        name: Set up Go Cache Paths
         run: |
           echo "::set-output name=go-build::$(go env GOCACHE)"
           echo "::set-output name=go-mod::$(go env GOMODCACHE)"
