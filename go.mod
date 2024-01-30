@@ -4,9 +4,12 @@ go 1.21.5
 
 require (
 	github.com/labstack/echo/v5 v5.0.0-20230722203903-ec5b858dab61
+	github.com/minio/selfupdate v0.6.0
 	github.com/pocketbase/pocketbase v0.21.1
 	github.com/spf13/cobra v1.8.0
 )
+
+require aead.dev/minisign v0.2.0 // indirect
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7 // indirect

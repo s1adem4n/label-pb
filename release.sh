@@ -1,3 +1,9 @@
+# check if there are uncommited changes
+if [[ $(git status --porcelain) ]]; then
+  echo "There are uncommited changes. Commit them first."
+  exit 1
+fi
+
 TAG=$(git describe --tags --abbrev=0 2>/dev/null)
 if [[ -z "$TAG" ]]; then
     echo "No tag found. Enter a tag:"

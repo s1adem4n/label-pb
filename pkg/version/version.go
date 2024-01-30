@@ -2,11 +2,9 @@ package version
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"runtime"
-	"strings"
 )
 
 type Release struct {
@@ -66,33 +64,4 @@ var GetArch = func() string {
 		arch = "arm64"
 	}
 	return arch
-}
-
-// gets the correct asset based on the OS and architecture
-// binarys are named like this: label_{os}_{arch}(.exe)
-var GetCorrectAsset = func(assets []Asset) (*Asset, error) {
-	arch := GetArch()
-	os := runtime.GOOS
-
-	for _, asset := range assets {
-		if strings.Contains(asset.Name, os) && strings.Contains(asset.Name, arch) {
-			return &asset, nil
-		}
-	}
-
-	return nil, fmt.Errorf("could not find asset for %s %s", os, arch)
-}
-
-var DownloadAsset = func(asset *Asset) ([]byte, error) {
-	res, err := http.Get(asset.DownloadUrl)
-	if err != nil {
-		return nil, err
-	}
-
-	data, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
 }
