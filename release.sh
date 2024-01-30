@@ -33,8 +33,6 @@ if [[ ! $(git ls-remote --tags origin | grep $TAG) ]]; then
   git push --tags
 fi
 
-echo "Tag: $TAG"
-
 # check if zip does not exist
 if [[ ! -f releases/${TAG}.zip ]] || [[ $@ =~ "-f" ]]; then
   make -j4 --always-make all
