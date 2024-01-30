@@ -45,7 +45,7 @@
 	</AlertDialog.Content>
 </AlertDialog.Root>
 
-<div class="flex flex-col gap-6 p-4">
+<div class="mx-auto flex max-w-xl flex-col gap-6 p-4">
 	<div class="flex flex-col gap-2">
 		<h3 class="text-xl font-bold leading-6">Benutzername ändern</h3>
 		<div>
@@ -128,6 +128,12 @@
 	{#if $auth.model.admin}
 		<div class="flex flex-col gap-2">
 			<h3 class="text-xl font-bold leading-6">Server-Aktionen</h3>
+			{#await $pb.send('/version', {}) then version}
+				<div>
+					<p class="text-sm">Aktuelle Version: {version.version || 'Nicht verfügbar'}</p>
+					<p class="text-sm">Neueste verfügbare Version: {version.latest}</p>
+				</div>
+			{/await}
 			<Button
 				disabled={loading}
 				on:click={() => {

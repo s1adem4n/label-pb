@@ -27,5 +27,7 @@ func RestartSelf() error {
 		}
 		return err
 	}
-	return syscall.Exec(self, args, env)
+	syscall.Exec(self, args, env)
+	os.Exit(0)
+	return nil
 }
