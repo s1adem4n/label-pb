@@ -9,18 +9,18 @@ TARGETS = build/$(BINARY_NAME)_linux_amd64 build/$(BINARY_NAME)_darwin_amd64 bui
 
 all: $(TARGETS)
 
-pkg/frontend/build:
-	cd pkg/frontend && bun install && bun run build
+frontend/build:
+	cd frontend && bun install && bun run build
 
-build/$(BINARY_NAME)_linux_amd64: pkg/frontend/build $(SOURCES)
+build/$(BINARY_NAME)_linux_amd64: frontend/build $(SOURCES)
 	GOOS=linux GOARCH=amd64 go build $(FLAGS) -o build/$(BINARY_NAME)_linux_amd64 $(MAIN_FILE)
 
-build/$(BINARY_NAME)_darwin_amd64: pkg/frontend/build $(SOURCES)
+build/$(BINARY_NAME)_darwin_amd64: frontend/build $(SOURCES)
 	GOOS=darwin GOARCH=amd64 go build $(FLAGS) -o build/$(BINARY_NAME)_darwin_amd64 $(MAIN_FILE)
 
-build/$(BINARY_NAME)_darwin_arm64: pkg/frontend/build $(SOURCES)
+build/$(BINARY_NAME)_darwin_arm64: frontend/build $(SOURCES)
 	GOOS=darwin GOARCH=arm64 go build $(FLAGS) -o build/$(BINARY_NAME)_darwin_arm64 $(MAIN_FILE)
 
-build/$(BINARY_NAME)_windows_amd64.exe: pkg/frontend/build $(SOURCES)
+build/$(BINARY_NAME)_windows_amd64.exe: frontend/build $(SOURCES)
 	GOOS=windows GOARCH=amd64 go build $(FLAGS) -o build/$(BINARY_NAME)_windows_amd64.exe $(MAIN_FILE)
 
