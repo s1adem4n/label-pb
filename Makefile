@@ -1,4 +1,4 @@
-SHELL=/build/bash
+SHELL=/bin/bash
 
 BINARY_NAME=label
 MAIN_FILE=cmd/main.go
