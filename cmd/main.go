@@ -23,6 +23,21 @@ import (
 
 var Version string
 
+func SPAMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		err := next(c)
+		if err != nil {
+			if he, ok := err.(*echo.HTTPError); ok {
+				if he.Code == http.StatusNotFound && strings.HasPrefix(c.Request().URL.Path, "/app/") {
+					c.Request().URL.Path = "/app/"
+					return next(c)
+				}
+			}
+		}
+		return err
+	}
+}
+
 func main() {
 	if Version == "" {
 		fmt.Println("Version was not set when this binary was built.")
@@ -66,6 +81,7 @@ func main() {
 	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
 		fs := echo.MustSubFS(frontend.Frontend, "build")
 		e.Router.StaticFS("/app", fs)
+		e.Router.Pre(SPAMiddleware)
 
 		e.Router.GET("/", func(c echo.Context) error {
 			return c.Redirect(http.StatusPermanentRedirect, "/app")
