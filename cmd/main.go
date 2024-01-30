@@ -11,7 +11,9 @@ import (
 
 	"github.com/labstack/echo/v5"
 	"github.com/pocketbase/pocketbase"
+	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
+	"github.com/pocketbase/pocketbase/models"
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 	"github.com/spf13/cobra"
 
@@ -62,11 +64,57 @@ func main() {
 	isGoRun := strings.HasPrefix(os.Args[0], os.TempDir())
 
 	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
-		fs := echo.MustSubFS(frontend.Frontend, "frontend/build")
+		fs := echo.MustSubFS(frontend.Frontend, "build")
 		e.Router.StaticFS("/app", fs)
 
 		e.Router.GET("/", func(c echo.Context) error {
 			return c.Redirect(http.StatusPermanentRedirect, "/app")
+		})
+
+		e.Router.GET("/version", func(c echo.Context) error {
+			latestRelease, err := version.GetLatestRelease()
+			if err != nil {
+				return err
+			}
+
+			return c.JSON(http.StatusOK, map[string]string{
+				"version": Version,
+				"latest":  latestRelease.TagName,
+			})
+		})
+
+		e.Router.GET("/update", func(c echo.Context) error {
+			record, _ := c.Get(apis.ContextAuthRecordKey).(*models.Record)
+			isAdmin := record.GetBool("admin")
+			if !isAdmin {
+				return echo.ErrForbidden
+			}
+
+			err := version.Update()
+			if err != nil {
+				return err
+			}
+
+			return c.JSON(http.StatusOK, map[string]string{
+				"status": "ok",
+			})
+		})
+
+		e.Router.GET("/restart", func(c echo.Context) error {
+			record, _ := c.Get(apis.ContextAuthRecordKey).(*models.Record)
+			isAdmin := record.GetBool("admin")
+			if !isAdmin {
+				return echo.ErrForbidden
+			}
+
+			err := version.RestartSelf()
+			if err != nil {
+				return err
+			}
+
+			return c.JSON(http.StatusOK, map[string]string{
+				"status": "ok",
+			})
 		})
 
 		return nil

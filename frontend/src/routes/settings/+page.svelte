@@ -59,7 +59,7 @@
 				loading = true;
 				$pb
 					.collection('users')
-					.update($auth.model.id, { name: username })
+					.update($auth.model.id, { username })
 					.then(() => {
 						loading = false;
 						$auth.model.name = username;
