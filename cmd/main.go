@@ -52,6 +52,21 @@ func main() {
 		fmt.Println("Latest Version:", latestRelease.TagName)
 	}
 
+	if Version != "" && latestRelease.TagName != Version {
+		fmt.Println("A new version is available. Updating now...")
+		err := version.Update()
+		if err != nil {
+			fmt.Println("Failed to update:", err)
+		} else {
+			fmt.Println("Update successful. Restarting...")
+			err := version.RestartSelf()
+			if err != nil {
+				fmt.Println("Failed to restart:", err)
+			}
+			return
+		}
+	}
+
 	app := pocketbase.New()
 
 	app.RootCmd.AddCommand(&cobra.Command{
