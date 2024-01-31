@@ -7,6 +7,7 @@
 	import X from 'virtual:icons/lucide/x';
 	import Menu from 'virtual:icons/lucide/menu';
 	import Settings from 'virtual:icons/lucide/settings';
+	import Tag from 'virtual:icons/lucide/tag';
 
 	import { Button } from '$lib/components/ui';
 	import { auth } from '$lib/stores/auth';
@@ -20,6 +21,7 @@
 		products: 'Produkte',
 		batches: 'Chargen',
 		images: 'Bilder',
+		labels: 'Etiketten',
 		settings: 'Einstellungen'
 	};
 
@@ -68,6 +70,9 @@
 		</SidebarItem>
 		<SidebarItem path="images" title={titles['images']} bind:open>
 			<Image class="h-6 w-6" />
+		</SidebarItem>
+		<SidebarItem path="labels" title={titles['labels']} bind:open>
+			<Tag class="h-6 w-6" />
 		</SidebarItem>
 		<SidebarItem path="settings" title={titles['settings']} bind:open>
 			<Settings class="h-6 w-6" />

@@ -99,10 +99,9 @@
 
 @layer base {
 	* {
-		@apply border-border;
+		-webkit-tap-highlight-color: transparent @apply border-border;
 	}
 	body {
-		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 		@apply bg-background text-foreground;
 	}
 }

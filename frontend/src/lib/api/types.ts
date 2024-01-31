@@ -29,6 +29,14 @@ export interface Image extends Base {
 	file: string;
 }
 
+export interface User extends Base {
+	username: string;
+	email: string;
+	verified: boolean;
+	admin: boolean;
+	emailVisibility: boolean;
+}
+
 export interface TypedPocketBase extends PocketBase {
 	collection(idOrName: string): RecordService;
 	collection(idOrName: 'batches'): RecordService<Batch>;

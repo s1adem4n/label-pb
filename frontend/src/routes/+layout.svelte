@@ -18,10 +18,12 @@
 
 	$: if (
 		!$auth.isValid &&
-		$page.url.pathname !== `${base}/auth/login` &&
-		$page.url.pathname !== `${base}/auth/register`
+		$page.url.pathname !== `${base}/login/` &&
+		$page.url.pathname !== `${base}/register/` &&
+		$page.url.pathname !== `${base}/login` &&
+		$page.url.pathname !== `${base}/register`
 	) {
-		goto(`${base}/auth/login`);
+		goto(`${base}/login`);
 	}
 
 	onMount(() => {

@@ -136,9 +136,9 @@
 		<Button variant="destructive" on:click={() => (dialogOpen = true)}>Konto löschen</Button>
 	</div>
 
-	<Separator />
-
 	{#if $auth.model.admin}
+		<Separator />
+
 		<div class="flex flex-col gap-2">
 			<h3 class="text-xl font-bold leading-6">Server-Aktionen</h3>
 			{#await $pb.send('/version', {}) then version}

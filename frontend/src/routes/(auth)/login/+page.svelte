@@ -5,6 +5,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { auth } from '$lib/stores/auth';
+	import { toast } from 'svelte-sonner';
 
 	let usernameOrEmail = '';
 	let password = '';
@@ -39,10 +40,11 @@
 			})
 			.catch(() => {
 				loading = false;
+				toast.error('Einloggen fehlgeschlagen.');
 			});
 	}}>Einloggen</Button
 >
 
 <p class="mt-4 text-center text-sm">
-	Du hast noch kein Konto? <a class="underline" href="{base}/auth/register">Registrieren</a>
+	Du hast noch kein Konto? <a class="underline" href="{base}/register">Registrieren</a>
 </p>
